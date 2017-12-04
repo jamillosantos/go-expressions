@@ -45,11 +45,23 @@ func (s *BaseExpressionListener) EnterSignedAtom(ctx *SignedAtomContext) {}
 // ExitSignedAtom is called when production signedAtom is exited.
 func (s *BaseExpressionListener) ExitSignedAtom(ctx *SignedAtomContext) {}
 
+// EnterBinaryOp is called when production binaryOp is entered.
+func (s *BaseExpressionListener) EnterBinaryOp(ctx *BinaryOpContext) {}
+
+// ExitBinaryOp is called when production binaryOp is exited.
+func (s *BaseExpressionListener) ExitBinaryOp(ctx *BinaryOpContext) {}
+
 // EnterAtom is called when production atom is entered.
 func (s *BaseExpressionListener) EnterAtom(ctx *AtomContext) {}
 
 // ExitAtom is called when production atom is exited.
 func (s *BaseExpressionListener) ExitAtom(ctx *AtomContext) {}
+
+// EnterString is called when production string is entered.
+func (s *BaseExpressionListener) EnterString(ctx *StringContext) {}
+
+// ExitString is called when production string is exited.
+func (s *BaseExpressionListener) ExitString(ctx *StringContext) {}
 
 // EnterScientific is called when production scientific is entered.
 func (s *BaseExpressionListener) EnterScientific(ctx *ScientificContext) {}

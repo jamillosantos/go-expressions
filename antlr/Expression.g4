@@ -5,7 +5,7 @@ expression
    ;
 
 multiplyingExpression
-   : powExpression ((TIMES | DIV) powExpression)*
+   : powExpression ((TIMES | DIV | MOD) powExpression)*
    ;
 
 powExpression
@@ -15,7 +15,12 @@ powExpression
 signedAtom
    : operator=(PLUS | MINUS) signedAtom
    | function
+   | binaryOp
    | atom
+   ;
+
+binaryOp
+   : atom relop atom
    ;
 
 atom
@@ -23,6 +28,11 @@ atom
    | variable
    | constant
    | LPAREN expression RPAREN
+   | string
+   ;
+
+string
+   : QUOTED_STRING
    ;
 
 scientific
@@ -53,12 +63,16 @@ funcname
    | LOG
    | LN
    | SQRT
+   | IF
    ;
 
 relop
    : EQ
    | GT
    | LT
+   | OR
+   | AND
+   | XOR
    ;
 
 
@@ -106,6 +120,10 @@ SQRT
    : 'sqrt'
    ;
 
+IF
+   : 'if'
+   ;
+
 
 LPAREN
    : '('
@@ -136,6 +154,10 @@ DIV
    : '/'
    ;
 
+MOD
+   : '%'
+   ;
+
 
 GT
    : '>'
@@ -148,7 +170,19 @@ LT
 
 
 EQ
-   : '='
+   : '=='
+   ;
+
+OR
+   : '||'
+   ;
+
+AND
+   : '&&'
+   ;
+
+XOR
+   : 'xor'
    ;
 
 
@@ -186,6 +220,17 @@ VARIABLE
    : VALID_ID_START VALID_ID_CHAR*
    ;
 
+QUOTED_STRING
+   : QUOTE ( ESCAPED_QUOTE | ~('\n'|'\r') )*? QUOTE
+   ;
+
+QUOTE
+   : '"'
+   ;
+
+fragment ESCAPED_QUOTE
+   : '\\"'
+   ;
 
 fragment VALID_ID_START
    : ('a' .. 'z') | ('A' .. 'Z') | '_'

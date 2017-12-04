@@ -20,8 +20,14 @@ type ExpressionListener interface {
 	// EnterSignedAtom is called when entering the signedAtom production.
 	EnterSignedAtom(c *SignedAtomContext)
 
+	// EnterBinaryOp is called when entering the binaryOp production.
+	EnterBinaryOp(c *BinaryOpContext)
+
 	// EnterAtom is called when entering the atom production.
 	EnterAtom(c *AtomContext)
+
+	// EnterString is called when entering the string production.
+	EnterString(c *StringContext)
 
 	// EnterScientific is called when entering the scientific production.
 	EnterScientific(c *ScientificContext)
@@ -53,8 +59,14 @@ type ExpressionListener interface {
 	// ExitSignedAtom is called when exiting the signedAtom production.
 	ExitSignedAtom(c *SignedAtomContext)
 
+	// ExitBinaryOp is called when exiting the binaryOp production.
+	ExitBinaryOp(c *BinaryOpContext)
+
 	// ExitAtom is called when exiting the atom production.
 	ExitAtom(c *AtomContext)
+
+	// ExitString is called when exiting the string production.
+	ExitString(c *StringContext)
 
 	// ExitScientific is called when exiting the scientific production.
 	ExitScientific(c *ScientificContext)
