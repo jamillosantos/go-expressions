@@ -26,8 +26,8 @@ type ExpressionListener interface {
 	// EnterAtom is called when entering the atom production.
 	EnterAtom(c *AtomContext)
 
-	// EnterString is called when entering the string production.
-	EnterString(c *StringContext)
+	// EnterStr is called when entering the str production.
+	EnterStr(c *StrContext)
 
 	// EnterScientific is called when entering the scientific production.
 	EnterScientific(c *ScientificContext)
@@ -40,9 +40,6 @@ type ExpressionListener interface {
 
 	// EnterFunction is called when entering the function production.
 	EnterFunction(c *FunctionContext)
-
-	// EnterFuncname is called when entering the funcname production.
-	EnterFuncname(c *FuncnameContext)
 
 	// EnterRelop is called when entering the relop production.
 	EnterRelop(c *RelopContext)
@@ -65,8 +62,8 @@ type ExpressionListener interface {
 	// ExitAtom is called when exiting the atom production.
 	ExitAtom(c *AtomContext)
 
-	// ExitString is called when exiting the string production.
-	ExitString(c *StringContext)
+	// ExitStr is called when exiting the str production.
+	ExitStr(c *StrContext)
 
 	// ExitScientific is called when exiting the scientific production.
 	ExitScientific(c *ScientificContext)
@@ -79,9 +76,6 @@ type ExpressionListener interface {
 
 	// ExitFunction is called when exiting the function production.
 	ExitFunction(c *FunctionContext)
-
-	// ExitFuncname is called when exiting the funcname production.
-	ExitFuncname(c *FuncnameContext)
 
 	// ExitRelop is called when exiting the relop production.
 	ExitRelop(c *RelopContext)

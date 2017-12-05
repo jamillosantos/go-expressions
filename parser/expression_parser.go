@@ -17,66 +17,62 @@ var _ = strconv.Itoa
 
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 36, 98, 4, 
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 26, 94, 4, 
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4, 
 	8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13, 9, 
-	13, 4, 14, 9, 14, 3, 2, 3, 2, 3, 2, 7, 2, 32, 10, 2, 12, 2, 14, 2, 35, 
-	11, 2, 3, 3, 3, 3, 3, 3, 7, 3, 40, 10, 3, 12, 3, 14, 3, 43, 11, 3, 3, 4, 
-	3, 4, 3, 4, 7, 4, 48, 10, 4, 12, 4, 14, 4, 51, 11, 4, 3, 5, 3, 5, 3, 5, 
-	3, 5, 3, 5, 5, 5, 58, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 
-	3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 5, 7, 72, 10, 7, 3, 8, 3, 8, 3, 9, 3, 9, 
-	3, 10, 3, 10, 3, 11, 3, 11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 7, 12, 87, 
-	10, 12, 12, 12, 14, 12, 90, 11, 12, 3, 12, 3, 12, 3, 13, 3, 13, 3, 14, 
-	3, 14, 3, 14, 2, 2, 15, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 
-	2, 7, 3, 2, 15, 16, 3, 2, 17, 19, 3, 2, 29, 31, 3, 2, 3, 12, 3, 2, 20, 
-	25, 2, 95, 2, 28, 3, 2, 2, 2, 4, 36, 3, 2, 2, 2, 6, 44, 3, 2, 2, 2, 8, 
-	57, 3, 2, 2, 2, 10, 59, 3, 2, 2, 2, 12, 71, 3, 2, 2, 2, 14, 73, 3, 2, 2, 
-	2, 16, 75, 3, 2, 2, 2, 18, 77, 3, 2, 2, 2, 20, 79, 3, 2, 2, 2, 22, 81, 
-	3, 2, 2, 2, 24, 93, 3, 2, 2, 2, 26, 95, 3, 2, 2, 2, 28, 33, 5, 4, 3, 2, 
-	29, 30, 9, 2, 2, 2, 30, 32, 5, 4, 3, 2, 31, 29, 3, 2, 2, 2, 32, 35, 3, 
-	2, 2, 2, 33, 31, 3, 2, 2, 2, 33, 34, 3, 2, 2, 2, 34, 3, 3, 2, 2, 2, 35, 
-	33, 3, 2, 2, 2, 36, 41, 5, 6, 4, 2, 37, 38, 9, 3, 2, 2, 38, 40, 5, 6, 4, 
-	2, 39, 37, 3, 2, 2, 2, 40, 43, 3, 2, 2, 2, 41, 39, 3, 2, 2, 2, 41, 42, 
-	3, 2, 2, 2, 42, 5, 3, 2, 2, 2, 43, 41, 3, 2, 2, 2, 44, 49, 5, 8, 5, 2, 
-	45, 46, 7, 28, 2, 2, 46, 48, 5, 8, 5, 2, 47, 45, 3, 2, 2, 2, 48, 51, 3, 
-	2, 2, 2, 49, 47, 3, 2, 2, 2, 49, 50, 3, 2, 2, 2, 50, 7, 3, 2, 2, 2, 51, 
-	49, 3, 2, 2, 2, 52, 53, 9, 2, 2, 2, 53, 58, 5, 8, 5, 2, 54, 58, 5, 22, 
-	12, 2, 55, 58, 5, 10, 6, 2, 56, 58, 5, 12, 7, 2, 57, 52, 3, 2, 2, 2, 57, 
-	54, 3, 2, 2, 2, 57, 55, 3, 2, 2, 2, 57, 56, 3, 2, 2, 2, 58, 9, 3, 2, 2, 
-	2, 59, 60, 5, 12, 7, 2, 60, 61, 5, 26, 14, 2, 61, 62, 5, 12, 7, 2, 62, 
-	11, 3, 2, 2, 2, 63, 72, 5, 16, 9, 2, 64, 72, 5, 20, 11, 2, 65, 72, 5, 18, 
-	10, 2, 66, 67, 7, 13, 2, 2, 67, 68, 5, 2, 2, 2, 68, 69, 7, 14, 2, 2, 69, 
-	72, 3, 2, 2, 2, 70, 72, 5, 14, 8, 2, 71, 63, 3, 2, 2, 2, 71, 64, 3, 2, 
-	2, 2, 71, 65, 3, 2, 2, 2, 71, 66, 3, 2, 2, 2, 71, 70, 3, 2, 2, 2, 72, 13, 
-	3, 2, 2, 2, 73, 74, 7, 33, 2, 2, 74, 15, 3, 2, 2, 2, 75, 76, 7, 35, 2, 
-	2, 76, 17, 3, 2, 2, 2, 77, 78, 9, 4, 2, 2, 78, 19, 3, 2, 2, 2, 79, 80, 
-	7, 32, 2, 2, 80, 21, 3, 2, 2, 2, 81, 82, 5, 24, 13, 2, 82, 83, 7, 13, 2, 
-	2, 83, 88, 5, 2, 2, 2, 84, 85, 7, 26, 2, 2, 85, 87, 5, 2, 2, 2, 86, 84, 
-	3, 2, 2, 2, 87, 90, 3, 2, 2, 2, 88, 86, 3, 2, 2, 2, 88, 89, 3, 2, 2, 2, 
-	89, 91, 3, 2, 2, 2, 90, 88, 3, 2, 2, 2, 91, 92, 7, 14, 2, 2, 92, 23, 3, 
-	2, 2, 2, 93, 94, 9, 5, 2, 2, 94, 25, 3, 2, 2, 2, 95, 96, 9, 6, 2, 2, 96, 
-	27, 3, 2, 2, 2, 8, 33, 41, 49, 57, 71, 88,
+	13, 3, 2, 3, 2, 3, 2, 7, 2, 30, 10, 2, 12, 2, 14, 2, 33, 11, 2, 3, 3, 3, 
+	3, 3, 3, 7, 3, 38, 10, 3, 12, 3, 14, 3, 41, 11, 3, 3, 4, 3, 4, 3, 4, 7, 
+	4, 46, 10, 4, 12, 4, 14, 4, 49, 11, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 
+	5, 56, 10, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 
+	7, 3, 7, 3, 7, 5, 7, 70, 10, 7, 3, 8, 3, 8, 3, 9, 3, 9, 3, 10, 3, 10, 3, 
+	11, 3, 11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 7, 12, 85, 10, 12, 12, 12, 
+	14, 12, 88, 11, 12, 3, 12, 3, 12, 3, 13, 3, 13, 3, 13, 2, 2, 14, 2, 4, 
+	6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 2, 6, 3, 2, 5, 6, 3, 2, 7, 9, 3, 
+	2, 19, 21, 3, 2, 10, 15, 2, 92, 2, 26, 3, 2, 2, 2, 4, 34, 3, 2, 2, 2, 6, 
+	42, 3, 2, 2, 2, 8, 55, 3, 2, 2, 2, 10, 57, 3, 2, 2, 2, 12, 69, 3, 2, 2, 
+	2, 14, 71, 3, 2, 2, 2, 16, 73, 3, 2, 2, 2, 18, 75, 3, 2, 2, 2, 20, 77, 
+	3, 2, 2, 2, 22, 79, 3, 2, 2, 2, 24, 91, 3, 2, 2, 2, 26, 31, 5, 4, 3, 2, 
+	27, 28, 9, 2, 2, 2, 28, 30, 5, 4, 3, 2, 29, 27, 3, 2, 2, 2, 30, 33, 3, 
+	2, 2, 2, 31, 29, 3, 2, 2, 2, 31, 32, 3, 2, 2, 2, 32, 3, 3, 2, 2, 2, 33, 
+	31, 3, 2, 2, 2, 34, 39, 5, 6, 4, 2, 35, 36, 9, 3, 2, 2, 36, 38, 5, 6, 4, 
+	2, 37, 35, 3, 2, 2, 2, 38, 41, 3, 2, 2, 2, 39, 37, 3, 2, 2, 2, 39, 40, 
+	3, 2, 2, 2, 40, 5, 3, 2, 2, 2, 41, 39, 3, 2, 2, 2, 42, 47, 5, 8, 5, 2, 
+	43, 44, 7, 18, 2, 2, 44, 46, 5, 8, 5, 2, 45, 43, 3, 2, 2, 2, 46, 49, 3, 
+	2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 7, 3, 2, 2, 2, 49, 
+	47, 3, 2, 2, 2, 50, 51, 9, 2, 2, 2, 51, 56, 5, 8, 5, 2, 52, 56, 5, 22, 
+	12, 2, 53, 56, 5, 12, 7, 2, 54, 56, 5, 10, 6, 2, 55, 50, 3, 2, 2, 2, 55, 
+	52, 3, 2, 2, 2, 55, 53, 3, 2, 2, 2, 55, 54, 3, 2, 2, 2, 56, 9, 3, 2, 2, 
+	2, 57, 58, 5, 12, 7, 2, 58, 59, 5, 24, 13, 2, 59, 60, 5, 12, 7, 2, 60, 
+	11, 3, 2, 2, 2, 61, 70, 5, 16, 9, 2, 62, 70, 5, 20, 11, 2, 63, 70, 5, 18, 
+	10, 2, 64, 65, 7, 3, 2, 2, 65, 66, 5, 2, 2, 2, 66, 67, 7, 4, 2, 2, 67, 
+	70, 3, 2, 2, 2, 68, 70, 5, 14, 8, 2, 69, 61, 3, 2, 2, 2, 69, 62, 3, 2, 
+	2, 2, 69, 63, 3, 2, 2, 2, 69, 64, 3, 2, 2, 2, 69, 68, 3, 2, 2, 2, 70, 13, 
+	3, 2, 2, 2, 71, 72, 7, 23, 2, 2, 72, 15, 3, 2, 2, 2, 73, 74, 7, 25, 2, 
+	2, 74, 17, 3, 2, 2, 2, 75, 76, 9, 4, 2, 2, 76, 19, 3, 2, 2, 2, 77, 78, 
+	7, 22, 2, 2, 78, 21, 3, 2, 2, 2, 79, 80, 7, 22, 2, 2, 80, 81, 7, 3, 2, 
+	2, 81, 86, 5, 2, 2, 2, 82, 83, 7, 16, 2, 2, 83, 85, 5, 2, 2, 2, 84, 82, 
+	3, 2, 2, 2, 85, 88, 3, 2, 2, 2, 86, 84, 3, 2, 2, 2, 86, 87, 3, 2, 2, 2, 
+	87, 89, 3, 2, 2, 2, 88, 86, 3, 2, 2, 2, 89, 90, 7, 4, 2, 2, 90, 23, 3, 
+	2, 2, 2, 91, 92, 9, 5, 2, 2, 92, 25, 3, 2, 2, 2, 8, 31, 39, 47, 55, 69, 
+	86,
 }
 var deserializer = antlr.NewATNDeserializer(nil)
 var deserializedATN = deserializer.DeserializeFromUInt16(parserATN)
 
 var literalNames = []string{
-	"", "'cos'", "'sin'", "'tan'", "'acos'", "'asin'", "'atan'", "'ln'", "'log'", 
-	"'sqrt'", "'if'", "'('", "')'", "'+'", "'-'", "'*'", "'/'", "'%'", "'>'", 
-	"'<'", "'=='", "'||'", "'&&'", "'xor'", "','", "'.'", "'^'", "'pi'", "", 
-	"'i'", "", "", "'\"'",
+	"", "'('", "')'", "'+'", "'-'", "'*'", "'/'", "'%'", "'>'", "'<'", "'=='", 
+	"'||'", "'&&'", "'xor'", "','", "'.'", "'^'", "'pi'", "", "'i'", "", "", 
+	"'\"'",
 }
 var symbolicNames = []string{
-	"", "COS", "SIN", "TAN", "ACOS", "ASIN", "ATAN", "LN", "LOG", "SQRT", "IF", 
-	"LPAREN", "RPAREN", "PLUS", "MINUS", "TIMES", "DIV", "MOD", "GT", "LT", 
+	"", "LPAREN", "RPAREN", "PLUS", "MINUS", "TIMES", "DIV", "MOD", "GT", "LT", 
 	"EQ", "OR", "AND", "XOR", "COMMA", "POINT", "POW", "PI", "EULER", "I", 
 	"VARIABLE", "QUOTED_STRING", "QUOTE", "SCIENTIFIC_NUMBER", "WS",
 }
 
 var ruleNames = []string{
 	"expression", "multiplyingExpression", "powExpression", "signedAtom", "binaryOp", 
-	"atom", "string", "scientific", "constant", "variable", "function", "funcname", 
-	"relop",
+	"atom", "str", "scientific", "constant", "variable", "function", "relop",
 }
 var decisionToDFA = make([]*antlr.DFA, len(deserializedATN.DecisionToState))
 
@@ -107,40 +103,30 @@ func NewExpressionParser(input antlr.TokenStream) *ExpressionParser {
 // ExpressionParser tokens.
 const (
 	ExpressionParserEOF = antlr.TokenEOF
-	ExpressionParserCOS = 1
-	ExpressionParserSIN = 2
-	ExpressionParserTAN = 3
-	ExpressionParserACOS = 4
-	ExpressionParserASIN = 5
-	ExpressionParserATAN = 6
-	ExpressionParserLN = 7
-	ExpressionParserLOG = 8
-	ExpressionParserSQRT = 9
-	ExpressionParserIF = 10
-	ExpressionParserLPAREN = 11
-	ExpressionParserRPAREN = 12
-	ExpressionParserPLUS = 13
-	ExpressionParserMINUS = 14
-	ExpressionParserTIMES = 15
-	ExpressionParserDIV = 16
-	ExpressionParserMOD = 17
-	ExpressionParserGT = 18
-	ExpressionParserLT = 19
-	ExpressionParserEQ = 20
-	ExpressionParserOR = 21
-	ExpressionParserAND = 22
-	ExpressionParserXOR = 23
-	ExpressionParserCOMMA = 24
-	ExpressionParserPOINT = 25
-	ExpressionParserPOW = 26
-	ExpressionParserPI = 27
-	ExpressionParserEULER = 28
-	ExpressionParserI = 29
-	ExpressionParserVARIABLE = 30
-	ExpressionParserQUOTED_STRING = 31
-	ExpressionParserQUOTE = 32
-	ExpressionParserSCIENTIFIC_NUMBER = 33
-	ExpressionParserWS = 34
+	ExpressionParserLPAREN = 1
+	ExpressionParserRPAREN = 2
+	ExpressionParserPLUS = 3
+	ExpressionParserMINUS = 4
+	ExpressionParserTIMES = 5
+	ExpressionParserDIV = 6
+	ExpressionParserMOD = 7
+	ExpressionParserGT = 8
+	ExpressionParserLT = 9
+	ExpressionParserEQ = 10
+	ExpressionParserOR = 11
+	ExpressionParserAND = 12
+	ExpressionParserXOR = 13
+	ExpressionParserCOMMA = 14
+	ExpressionParserPOINT = 15
+	ExpressionParserPOW = 16
+	ExpressionParserPI = 17
+	ExpressionParserEULER = 18
+	ExpressionParserI = 19
+	ExpressionParserVARIABLE = 20
+	ExpressionParserQUOTED_STRING = 21
+	ExpressionParserQUOTE = 22
+	ExpressionParserSCIENTIFIC_NUMBER = 23
+	ExpressionParserWS = 24
 )
 
 // ExpressionParser rules.
@@ -151,13 +137,12 @@ const (
 	ExpressionParserRULE_signedAtom = 3
 	ExpressionParserRULE_binaryOp = 4
 	ExpressionParserRULE_atom = 5
-	ExpressionParserRULE_string = 6
+	ExpressionParserRULE_str = 6
 	ExpressionParserRULE_scientific = 7
 	ExpressionParserRULE_constant = 8
 	ExpressionParserRULE_variable = 9
 	ExpressionParserRULE_function = 10
-	ExpressionParserRULE_funcname = 11
-	ExpressionParserRULE_relop = 12
+	ExpressionParserRULE_relop = 11
 )
 
 // IExpressionContext is an interface to support dynamic dispatch.
@@ -285,16 +270,16 @@ func (p *ExpressionParser) Expression() (localctx IExpressionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(26)
+		p.SetState(24)
 		p.MultiplyingExpression()
 	}
-	p.SetState(31)
+	p.SetState(29)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 
 	for _la == ExpressionParserPLUS || _la == ExpressionParserMINUS {
-		p.SetState(27)
+		p.SetState(25)
 		_la = p.GetTokenStream().LA(1)
 
 		if !(_la == ExpressionParserPLUS || _la == ExpressionParserMINUS) {
@@ -304,12 +289,12 @@ func (p *ExpressionParser) Expression() (localctx IExpressionContext) {
 			p.Consume()
 		}
 		{
-			p.SetState(28)
+			p.SetState(26)
 			p.MultiplyingExpression()
 		}
 
 
-		p.SetState(33)
+		p.SetState(31)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -453,16 +438,16 @@ func (p *ExpressionParser) MultiplyingExpression() (localctx IMultiplyingExpress
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(34)
+		p.SetState(32)
 		p.PowExpression()
 	}
-	p.SetState(39)
+	p.SetState(37)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 
 	for (((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserTIMES) | (1 << ExpressionParserDIV) | (1 << ExpressionParserMOD))) != 0) {
-		p.SetState(35)
+		p.SetState(33)
 		_la = p.GetTokenStream().LA(1)
 
 		if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserTIMES) | (1 << ExpressionParserDIV) | (1 << ExpressionParserMOD))) != 0)) {
@@ -472,12 +457,12 @@ func (p *ExpressionParser) MultiplyingExpression() (localctx IMultiplyingExpress
 			p.Consume()
 		}
 		{
-			p.SetState(36)
+			p.SetState(34)
 			p.PowExpression()
 		}
 
 
-		p.SetState(41)
+		p.SetState(39)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -605,26 +590,26 @@ func (p *ExpressionParser) PowExpression() (localctx IPowExpressionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(42)
+		p.SetState(40)
 		p.SignedAtom()
 	}
-	p.SetState(47)
+	p.SetState(45)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 
 	for _la == ExpressionParserPOW {
 		{
-			p.SetState(43)
+			p.SetState(41)
 			p.Match(ExpressionParserPOW)
 		}
 		{
-			p.SetState(44)
+			p.SetState(42)
 			p.SignedAtom()
 		}
 
 
-		p.SetState(49)
+		p.SetState(47)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -716,16 +701,6 @@ func (s *SignedAtomContext) Function() IFunctionContext {
 	return t.(IFunctionContext)
 }
 
-func (s *SignedAtomContext) BinaryOp() IBinaryOpContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IBinaryOpContext)(nil)).Elem(), 0)
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IBinaryOpContext)
-}
-
 func (s *SignedAtomContext) Atom() IAtomContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IAtomContext)(nil)).Elem(), 0)
 
@@ -734,6 +709,16 @@ func (s *SignedAtomContext) Atom() IAtomContext {
 	}
 
 	return t.(IAtomContext)
+}
+
+func (s *SignedAtomContext) BinaryOp() IBinaryOpContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IBinaryOpContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBinaryOpContext)
 }
 
 func (s *SignedAtomContext) GetRuleContext() antlr.RuleContext {
@@ -782,12 +767,12 @@ func (p *ExpressionParser) SignedAtom() (localctx ISignedAtomContext) {
 		}
 	}()
 
-	p.SetState(55)
+	p.SetState(53)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
-		p.SetState(50)
+		p.SetState(48)
 
 		var _lt = p.GetTokenStream().LT(1)
 
@@ -804,7 +789,7 @@ func (p *ExpressionParser) SignedAtom() (localctx ISignedAtomContext) {
 			p.Consume()
 		}
 		{
-			p.SetState(51)
+			p.SetState(49)
 			p.SignedAtom()
 		}
 
@@ -812,7 +797,7 @@ func (p *ExpressionParser) SignedAtom() (localctx ISignedAtomContext) {
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(52)
+			p.SetState(50)
 			p.Function()
 		}
 
@@ -820,16 +805,16 @@ func (p *ExpressionParser) SignedAtom() (localctx ISignedAtomContext) {
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(53)
-			p.BinaryOp()
+			p.SetState(51)
+			p.Atom()
 		}
 
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(54)
-			p.Atom()
+			p.SetState(52)
+			p.BinaryOp()
 		}
 
 	}
@@ -956,15 +941,15 @@ func (p *ExpressionParser) BinaryOp() (localctx IBinaryOpContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(57)
+		p.SetState(55)
 		p.Atom()
 	}
 	{
-		p.SetState(58)
+		p.SetState(56)
 		p.Relop()
 	}
 	{
-		p.SetState(59)
+		p.SetState(57)
 		p.Atom()
 	}
 
@@ -1060,14 +1045,14 @@ func (s *AtomContext) RPAREN() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserRPAREN, 0)
 }
 
-func (s *AtomContext) String() IStringContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IStringContext)(nil)).Elem(), 0)
+func (s *AtomContext) Str() IStrContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IStrContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IStringContext)
+	return t.(IStrContext)
 }
 
 func (s *AtomContext) GetRuleContext() antlr.RuleContext {
@@ -1114,14 +1099,14 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 		}
 	}()
 
-	p.SetState(69)
+	p.SetState(67)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case ExpressionParserSCIENTIFIC_NUMBER:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(61)
+			p.SetState(59)
 			p.Scientific()
 		}
 
@@ -1129,7 +1114,7 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 	case ExpressionParserVARIABLE:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(62)
+			p.SetState(60)
 			p.Variable()
 		}
 
@@ -1137,7 +1122,7 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 	case ExpressionParserPI, ExpressionParserEULER, ExpressionParserI:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(63)
+			p.SetState(61)
 			p.Constant()
 		}
 
@@ -1145,15 +1130,15 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 	case ExpressionParserLPAREN:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(64)
+			p.SetState(62)
 			p.Match(ExpressionParserLPAREN)
 		}
 		{
-			p.SetState(65)
+			p.SetState(63)
 			p.Expression()
 		}
 		{
-			p.SetState(66)
+			p.SetState(64)
 			p.Match(ExpressionParserRPAREN)
 		}
 
@@ -1161,8 +1146,8 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 	case ExpressionParserQUOTED_STRING:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(68)
-			p.String()
+			p.SetState(66)
+			p.Str()
 		}
 
 
@@ -1176,75 +1161,75 @@ func (p *ExpressionParser) Atom() (localctx IAtomContext) {
 }
 
 
-// IStringContext is an interface to support dynamic dispatch.
-type IStringContext interface {
+// IStrContext is an interface to support dynamic dispatch.
+type IStrContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsStringContext differentiates from other interfaces.
-	IsStringContext()
+	// IsStrContext differentiates from other interfaces.
+	IsStrContext()
 }
 
-type StringContext struct {
+type StrContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyStringContext() *StringContext {
-	var p = new(StringContext)
+func NewEmptyStrContext() *StrContext {
+	var p = new(StrContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = ExpressionParserRULE_string
+	p.RuleIndex = ExpressionParserRULE_str
 	return p
 }
 
-func (*StringContext) IsStringContext() {}
+func (*StrContext) IsStrContext() {}
 
-func NewStringContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *StringContext {
-	var p = new(StringContext)
+func NewStrContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *StrContext {
+	var p = new(StrContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = ExpressionParserRULE_string
+	p.RuleIndex = ExpressionParserRULE_str
 
 	return p
 }
 
-func (s *StringContext) GetParser() antlr.Parser { return s.parser }
+func (s *StrContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *StringContext) QUOTED_STRING() antlr.TerminalNode {
+func (s *StrContext) QUOTED_STRING() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserQUOTED_STRING, 0)
 }
 
-func (s *StringContext) GetRuleContext() antlr.RuleContext {
+func (s *StrContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *StringContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *StrContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
 
-func (s *StringContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *StrContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(ExpressionListener); ok {
-		listenerT.EnterString(s)
+		listenerT.EnterStr(s)
 	}
 }
 
-func (s *StringContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *StrContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(ExpressionListener); ok {
-		listenerT.ExitString(s)
+		listenerT.ExitStr(s)
 	}
 }
 
 
 
 
-func (p *ExpressionParser) String() (localctx IStringContext) {
-	localctx = NewStringContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, ExpressionParserRULE_string)
+func (p *ExpressionParser) Str() (localctx IStrContext) {
+	localctx = NewStrContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 12, ExpressionParserRULE_str)
 
 	defer func() {
 		p.ExitRule()
@@ -1264,7 +1249,7 @@ func (p *ExpressionParser) String() (localctx IStringContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(71)
+		p.SetState(69)
 		p.Match(ExpressionParserQUOTED_STRING)
 	}
 
@@ -1362,7 +1347,7 @@ func (p *ExpressionParser) Scientific() (localctx IScientificContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(73)
+		p.SetState(71)
 		p.Match(ExpressionParserSCIENTIFIC_NUMBER)
 	}
 
@@ -1469,7 +1454,7 @@ func (p *ExpressionParser) Constant() (localctx IConstantContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(75)
+	p.SetState(73)
 	_la = p.GetTokenStream().LA(1)
 
 	if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserPI) | (1 << ExpressionParserEULER) | (1 << ExpressionParserI))) != 0)) {
@@ -1573,7 +1558,7 @@ func (p *ExpressionParser) Variable() (localctx IVariableContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(77)
+		p.SetState(75)
 		p.Match(ExpressionParserVARIABLE)
 	}
 
@@ -1590,6 +1575,14 @@ type IFunctionContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetFname returns the fname token.
+	GetFname() antlr.Token 
+
+
+	// SetFname sets the fname token.
+	SetFname(antlr.Token) 
+
+
 	// IsFunctionContext differentiates from other interfaces.
 	IsFunctionContext()
 }
@@ -1597,6 +1590,7 @@ type IFunctionContext interface {
 type FunctionContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
+	fname antlr.Token
 }
 
 func NewEmptyFunctionContext() *FunctionContext {
@@ -1621,15 +1615,11 @@ func NewFunctionContext(parser antlr.Parser, parent antlr.ParserRuleContext, inv
 
 func (s *FunctionContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *FunctionContext) Funcname() IFuncnameContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFuncnameContext)(nil)).Elem(), 0)
+func (s *FunctionContext) GetFname() antlr.Token { return s.fname }
 
-	if t == nil {
-		return nil
-	}
 
-	return t.(IFuncnameContext)
-}
+func (s *FunctionContext) SetFname(v antlr.Token) { s.fname = v }
+
 
 func (s *FunctionContext) LPAREN() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserLPAREN, 0)
@@ -1660,6 +1650,10 @@ func (s *FunctionContext) Expression(i int) IExpressionContext {
 
 func (s *FunctionContext) RPAREN() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserRPAREN, 0)
+}
+
+func (s *FunctionContext) VARIABLE() antlr.TerminalNode {
+	return s.GetToken(ExpressionParserVARIABLE, 0)
 }
 
 func (s *FunctionContext) AllCOMMA() []antlr.TerminalNode {
@@ -1718,181 +1712,43 @@ func (p *ExpressionParser) Function() (localctx IFunctionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(79)
-		p.Funcname()
+		p.SetState(77)
+
+		var _m = p.Match(ExpressionParserVARIABLE)
+
+		localctx.(*FunctionContext).fname = _m
 	}
 	{
-		p.SetState(80)
+		p.SetState(78)
 		p.Match(ExpressionParserLPAREN)
 	}
 	{
-		p.SetState(81)
+		p.SetState(79)
 		p.Expression()
 	}
-	p.SetState(86)
+	p.SetState(84)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 
 	for _la == ExpressionParserCOMMA {
 		{
-			p.SetState(82)
+			p.SetState(80)
 			p.Match(ExpressionParserCOMMA)
 		}
 		{
-			p.SetState(83)
+			p.SetState(81)
 			p.Expression()
 		}
 
 
-		p.SetState(88)
+		p.SetState(86)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(89)
+		p.SetState(87)
 		p.Match(ExpressionParserRPAREN)
-	}
-
-
-
-	return localctx
-}
-
-
-// IFuncnameContext is an interface to support dynamic dispatch.
-type IFuncnameContext interface {
-	antlr.ParserRuleContext
-
-	// GetParser returns the parser.
-	GetParser() antlr.Parser
-
-	// IsFuncnameContext differentiates from other interfaces.
-	IsFuncnameContext()
-}
-
-type FuncnameContext struct {
-	*antlr.BaseParserRuleContext
-	parser antlr.Parser
-}
-
-func NewEmptyFuncnameContext() *FuncnameContext {
-	var p = new(FuncnameContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = ExpressionParserRULE_funcname
-	return p
-}
-
-func (*FuncnameContext) IsFuncnameContext() {}
-
-func NewFuncnameContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *FuncnameContext {
-	var p = new(FuncnameContext)
-
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
-
-	p.parser = parser
-	p.RuleIndex = ExpressionParserRULE_funcname
-
-	return p
-}
-
-func (s *FuncnameContext) GetParser() antlr.Parser { return s.parser }
-
-func (s *FuncnameContext) COS() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserCOS, 0)
-}
-
-func (s *FuncnameContext) TAN() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserTAN, 0)
-}
-
-func (s *FuncnameContext) SIN() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserSIN, 0)
-}
-
-func (s *FuncnameContext) ACOS() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserACOS, 0)
-}
-
-func (s *FuncnameContext) ATAN() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserATAN, 0)
-}
-
-func (s *FuncnameContext) ASIN() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserASIN, 0)
-}
-
-func (s *FuncnameContext) LOG() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserLOG, 0)
-}
-
-func (s *FuncnameContext) LN() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserLN, 0)
-}
-
-func (s *FuncnameContext) SQRT() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserSQRT, 0)
-}
-
-func (s *FuncnameContext) IF() antlr.TerminalNode {
-	return s.GetToken(ExpressionParserIF, 0)
-}
-
-func (s *FuncnameContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *FuncnameContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
-	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-
-func (s *FuncnameContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(ExpressionListener); ok {
-		listenerT.EnterFuncname(s)
-	}
-}
-
-func (s *FuncnameContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(ExpressionListener); ok {
-		listenerT.ExitFuncname(s)
-	}
-}
-
-
-
-
-func (p *ExpressionParser) Funcname() (localctx IFuncnameContext) {
-	localctx = NewFuncnameContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 22, ExpressionParserRULE_funcname)
-	var _la int
-
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
-	p.EnterOuterAlt(localctx, 1)
-	p.SetState(91)
-	_la = p.GetTokenStream().LA(1)
-
-	if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserCOS) | (1 << ExpressionParserSIN) | (1 << ExpressionParserTAN) | (1 << ExpressionParserACOS) | (1 << ExpressionParserASIN) | (1 << ExpressionParserATAN) | (1 << ExpressionParserLN) | (1 << ExpressionParserLOG) | (1 << ExpressionParserSQRT) | (1 << ExpressionParserIF))) != 0)) {
-		p.GetErrorHandler().RecoverInline(p)
-	} else {
-	    p.GetErrorHandler().ReportMatch(p)
-		p.Consume()
 	}
 
 
@@ -1989,7 +1845,7 @@ func (s *RelopContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *ExpressionParser) Relop() (localctx IRelopContext) {
 	localctx = NewRelopContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 24, ExpressionParserRULE_relop)
+	p.EnterRule(localctx, 22, ExpressionParserRULE_relop)
 	var _la int
 
 
@@ -2010,7 +1866,7 @@ func (p *ExpressionParser) Relop() (localctx IRelopContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(93)
+	p.SetState(89)
 	_la = p.GetTokenStream().LA(1)
 
 	if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserGT) | (1 << ExpressionParserLT) | (1 << ExpressionParserEQ) | (1 << ExpressionParserOR) | (1 << ExpressionParserAND) | (1 << ExpressionParserXOR))) != 0)) {

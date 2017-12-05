@@ -2,25 +2,53 @@ package expressions
 
 import (
 	"math"
+	"fmt"
+	"errors"
 )
 
+type WrongTypeError struct {
+	v interface{}
+}
+
+func NewWrongTypeError(v interface{}) *WrongTypeError {
+	return &WrongTypeError{
+		v: v,
+	}
+}
+
+func (err *WrongTypeError) Error() string {
+	return fmt.Sprintf("%s has not a valid type.", fmt.Sprint(err.v))
+}
+
 type Expression interface {
-	Solve(ctx Context) float64
+	Solve(ctx Context) (interface{}, error)
 }
 
 type ExpressionValue struct {
-	value float64
+	value interface{}
 }
 
-func (e *ExpressionValue) Solve(ctx Context) float64 {
-	return e.value
+func NewExpressionValue(value interface{}) *ExpressionValue {
+	return &ExpressionValue{
+		value: value,
+	}
+}
+
+func (e *ExpressionValue) Solve(ctx Context) (interface{}, error) {
+	return e.value, nil
 }
 
 type ExpressionField struct {
 	field string
 }
 
-func (e *ExpressionField) Solve(ctx Context) float64 {
+func NewExpressionField(field string) *ExpressionField {
+	return &ExpressionField{
+		field: field,
+	}
+}
+
+func (e *ExpressionField) Solve(ctx Context) (interface{}, error) {
 	return ctx.Resolver().Resolve(e.field)
 }
 
@@ -32,17 +60,43 @@ func NewExpressionMultiple() *ExpressionMultiple {
 	return &ExpressionMultiple{}
 }
 
-func (e *ExpressionMultiple) Solve(ctx Context) float64 {
-	r := float64(0)
+func (e *ExpressionMultiple) Solve(ctx Context) (interface{}, error) {
+	result := float64(0)
+	var r float64
 	for i, p := range e.terms {
 		if i == 0 {
-			r = p.Solve(ctx)
+			rTemp, err := p.Solve(ctx)
+			if err != nil {
+				return nil, err
+			}
+			switch rr := rTemp.(type) {
+			case int:
+				r = float64(rr)
+			case float64:
+				r = rr
+			default:
+				return nil, NewWrongTypeError(rTemp)
+			}
+
+			result = r
 		} else {
-			ctx.SetAccumulated(r)
-			r = p.Solve(ctx)
+			ctx.SetAccumulated(result)
+			rTemp, err := p.Solve(ctx)
+			if err != nil {
+				return nil, err
+			}
+			switch rr := rTemp.(type) {
+			case int:
+				r = float64(rr)
+			case float64:
+				r = rr
+			default:
+				return nil, NewWrongTypeError(rTemp)
+			}
+			result = r
 		}
 	}
-	return r
+	return result, nil
 }
 
 func (e *ExpressionMultiple) Add(operator string, exp Expression) {
@@ -57,22 +111,63 @@ type ExpressionMultiplePart struct {
 	expression Expression
 }
 
-func (e *ExpressionMultiplePart) Solve(ctx Context) float64 {
+func (e *ExpressionMultiplePart) Solve(ctx Context) (interface{}, error) {
+	accumulated := ctx.Accumulated()
+	v, err := e.expression.Solve(ctx)
+	if err != nil {
+		return v, err
+	}
 	switch e.operator {
 	case "":
-		return e.expression.Solve(ctx)
+		return v, nil
 	case "+":
-		return ctx.Accumulated() + e.expression.Solve(ctx)
+		switch vv := v.(type) {
+		case int:
+			return accumulated + float64(vv), nil
+		case float64:
+			return accumulated + vv, nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
 	case "-":
-		return ctx.Accumulated() - e.expression.Solve(ctx)
+		switch vv := v.(type) {
+		case int:
+			return accumulated - float64(vv), nil
+		case float64:
+			return accumulated - vv, nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
 	case "*":
-		return ctx.Accumulated() * e.expression.Solve(ctx)
+		switch vv := v.(type) {
+		case int:
+			return accumulated * float64(vv), nil
+		case float64:
+			return accumulated * vv, nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
 	case "/":
-		return ctx.Accumulated() / e.expression.Solve(ctx)
+		switch vv := v.(type) {
+		case int:
+			return accumulated / float64(vv), nil
+		case float64:
+			return accumulated / vv, nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
 	case "^":
-		return math.Pow(ctx.Accumulated(), e.expression.Solve(ctx))
+		switch vv := v.(type) {
+		case int:
+			return math.Pow(accumulated, float64(vv)), nil
+		case float64:
+			return math.Pow(accumulated, vv), nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
+	default:
+		return nil, errors.New(fmt.Sprintf("The operator '%s' is not supported.", e.operator))
 	}
-	return math.NaN()
 }
 
 type ExpressionBinary struct {
@@ -81,28 +176,80 @@ type ExpressionBinary struct {
 	right    Expression
 }
 
-func (e *ExpressionBinary) Solve(ctx Context) float64 {
-	left := e.left.Solve(ctx)
-	right := e.right.Solve(ctx)
-	switch e.operator {
-	case "^":
-		return math.Pow(left, right)
-	case "*":
-		return left * right
-	case "/":
-		return left / right
-	case "+":
-		return left + right
-	case "-":
-		return left - right
+func NewExpressionBinary(left Expression, operator string, right Expression) *ExpressionBinary {
+	return &ExpressionBinary{
+		left:     left,
+		operator: operator,
+		right:    right,
 	}
-	return math.NaN()
+}
+
+func (e *ExpressionBinary) Solve(ctx Context) (interface{}, error) {
+	var (
+		left  float64
+		right float64
+	)
+	rLeft, err := e.left.Solve(ctx)
+	if err != nil {
+		return nil, err
+	}
+	switch r := rLeft.(type) {
+	case int:
+		left = float64(r)
+	case float64:
+		left = r
+	default:
+		return nil, NewWrongTypeError(rLeft)
+	}
+	rRight, err := e.right.Solve(ctx)
+	if err != nil {
+		return nil, err
+	}
+	switch r := rLeft.(type) {
+	case int:
+		right = float64(r)
+	case float64:
+		right = r
+	default:
+		return nil, NewWrongTypeError(rRight)
+	}
+	switch e.operator {
+	case ">":
+		return left > right, nil
+	case "<":
+		return left < right, nil
+	case ">=":
+		return left >= right, nil
+	case "<=":
+		return left <= right, nil
+	case "==":
+		return rLeft == right, nil
+	case "!=":
+		return rLeft != right, nil
+	}
+	return nil, errors.New(fmt.Sprintf("The operator '%s' is not supported", e.operator))
 }
 
 type ExpressionBrackets struct {
 	inner Expression
 }
 
-func (e *ExpressionBrackets) Solve(ctx Context) float64 {
+func (e *ExpressionBrackets) Solve(ctx Context) (interface{}, error) {
 	return e.inner.Solve(ctx)
+}
+
+type ExpressionFunction struct {
+	name   string
+	params []Expression
+}
+
+func NewExpressionFunction(name string, params ... Expression) *ExpressionFunction {
+	return &ExpressionFunction{
+		name:   name,
+		params: params,
+	}
+}
+
+func (e *ExpressionFunction) Solve(ctx Context) (interface{}, error) {
+	return ctx.Functions().Call(ctx, e.name, e.params...)
 }

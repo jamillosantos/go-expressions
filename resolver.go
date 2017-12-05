@@ -1,7 +1,7 @@
 package expressions
 
 type Resolver interface {
-	Resolve(name string) float64
+	Resolve(name string) (interface{}, error)
 }
 
 type MapResolver struct {
@@ -14,6 +14,6 @@ func NewMapResolver(m map[string]float64) *MapResolver {
 	}
 }
 
-func (resolver *MapResolver) Resolve(name string) float64 {
-	return resolver.m[name]
+func (resolver *MapResolver) Resolve(name string) (interface{}, error) {
+	return resolver.m[name], nil
 }

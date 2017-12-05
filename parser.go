@@ -4,6 +4,8 @@ import (
 	"github.com/jamillosantos/go-expressions/parser"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"strconv"
+	"reflect"
+	"fmt"
 )
 
 type ExpressionError error
@@ -16,9 +18,7 @@ func newExpression(expression antlr.Tree) Expression {
 		}
 	case *parser.ScientificContext:
 		v, _ := strconv.ParseFloat(e.GetText(), 64)
-		return &ExpressionValue{
-			value: v,
-		}
+		return NewExpressionValue(v)
 	case *parser.AtomContext:
 		if e.GetChildCount() == 1 {
 			return newExpression(e.GetChild(0))
@@ -30,7 +30,7 @@ func newExpression(expression antlr.Tree) Expression {
 			return newExpression(e.GetChild(0))
 		} else {
 			// TODO
-			panic("TODO!")
+			panic("TODO! " + e.GetText())
 		}
 	case *parser.ExpressionContext:
 		r := NewExpressionMultiple()
@@ -71,6 +71,15 @@ func newExpression(expression antlr.Tree) Expression {
 			}
 			return r
 		}
+	case *parser.FunctionContext:
+		eParams := e.AllExpression()
+		params := make([]Expression, 0, len(eParams))
+		for _, p := range eParams {
+			params = append(params, newExpression(p))
+		}
+		return NewExpressionFunction(e.GetFname().GetText(), params...)
+	default:
+		panic(fmt.Sprintf("%s is not implemented.", reflect.TypeOf(expression)))
 	}
 	return nil
 }

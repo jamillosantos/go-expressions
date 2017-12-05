@@ -57,11 +57,11 @@ func (s *BaseExpressionListener) EnterAtom(ctx *AtomContext) {}
 // ExitAtom is called when production atom is exited.
 func (s *BaseExpressionListener) ExitAtom(ctx *AtomContext) {}
 
-// EnterString is called when production string is entered.
-func (s *BaseExpressionListener) EnterString(ctx *StringContext) {}
+// EnterStr is called when production str is entered.
+func (s *BaseExpressionListener) EnterStr(ctx *StrContext) {}
 
-// ExitString is called when production string is exited.
-func (s *BaseExpressionListener) ExitString(ctx *StringContext) {}
+// ExitStr is called when production str is exited.
+func (s *BaseExpressionListener) ExitStr(ctx *StrContext) {}
 
 // EnterScientific is called when production scientific is entered.
 func (s *BaseExpressionListener) EnterScientific(ctx *ScientificContext) {}
@@ -86,12 +86,6 @@ func (s *BaseExpressionListener) EnterFunction(ctx *FunctionContext) {}
 
 // ExitFunction is called when production function is exited.
 func (s *BaseExpressionListener) ExitFunction(ctx *FunctionContext) {}
-
-// EnterFuncname is called when production funcname is entered.
-func (s *BaseExpressionListener) EnterFuncname(ctx *FuncnameContext) {}
-
-// ExitFuncname is called when production funcname is exited.
-func (s *BaseExpressionListener) ExitFuncname(ctx *FuncnameContext) {}
 
 // EnterRelop is called when production relop is entered.
 func (s *BaseExpressionListener) EnterRelop(ctx *RelopContext) {}

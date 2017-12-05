@@ -15,8 +15,8 @@ powExpression
 signedAtom
    : operator=(PLUS | MINUS) signedAtom
    | function
-   | binaryOp
    | atom
+   | binaryOp
    ;
 
 binaryOp
@@ -28,10 +28,10 @@ atom
    | variable
    | constant
    | LPAREN expression RPAREN
-   | string
+   | str
    ;
 
-string
+str
    : QUOTED_STRING
    ;
 
@@ -50,20 +50,7 @@ variable
    ;
 
 function
-   : funcname LPAREN expression (COMMA expression)* RPAREN
-   ;
-
-funcname
-   : COS
-   | TAN
-   | SIN
-   | ACOS
-   | ATAN
-   | ASIN
-   | LOG
-   | LN
-   | SQRT
-   | IF
+   : fname=VARIABLE LPAREN expression (COMMA expression)* RPAREN
    ;
 
 relop
@@ -74,56 +61,6 @@ relop
    | AND
    | XOR
    ;
-
-
-COS
-   : 'cos'
-   ;
-
-
-SIN
-   : 'sin'
-   ;
-
-
-TAN
-   : 'tan'
-   ;
-
-
-ACOS
-   : 'acos'
-   ;
-
-
-ASIN
-   : 'asin'
-   ;
-
-
-ATAN
-   : 'atan'
-   ;
-
-
-LN
-   : 'ln'
-   ;
-
-
-LOG
-   : 'log'
-   ;
-
-
-SQRT
-   : 'sqrt'
-   ;
-
-IF
-   : 'if'
-   ;
-
 
 LPAREN
    : '('
