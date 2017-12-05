@@ -83,7 +83,18 @@ func TestExpressions(t *testing.T) {
 				Expect(r).To(Equal(float64(3)))
 			})
 
-			g.It("should fail addition due to wrong data type", func() {
+			g.It("should fail addition due to wrong data type (1st param)", func() {
+				v := expressions.NewExpressionMultiple()
+				ctx := expressions.NewContext(nil, nil)
+				v.Add("", expressions.NewExpressionValue("string cannot be added"))
+				v.Add("+", expressions.NewExpressionValue(1))
+				Expect(v).NotTo(BeNil())
+				_, err := v.Solve(ctx)
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
+			})
+
+			g.It("should fail addition due to wrong data type (2nd param)", func() {
 				v := expressions.NewExpressionMultiple()
 				ctx := expressions.NewContext(nil, nil)
 				v.Add("", expressions.NewExpressionValue(1))
@@ -399,6 +410,17 @@ func TestExpressions(t *testing.T) {
 				Expect(v).NotTo(BeNil())
 			})
 
+			g.It("should fail due to invalid operator", func() {
+				expr := expressions.NewExpressionBinary(expressions.NewExpressionValue(1), "invalid operator", expressions.NewExpressionValue(3))
+				ctx := expressions.NewContext(nil, nil)
+				Expect(expr).NotTo(BeNil())
+				_, err := expr.Solve(ctx)
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(ContainSubstring("The operator"))
+				Expect(fmt.Sprint(err)).To(ContainSubstring("invalid operator"))
+				Expect(fmt.Sprint(err)).To(ContainSubstring("is not supported"))
+			})
+
 			g.Describe("< (lower than)", func() {
 				g.It("should solve true with integer parameters", func() {
 					expr := expressions.NewExpressionBinary(expressions.NewExpressionValue(1), "<", expressions.NewExpressionValue(3))
@@ -490,6 +512,24 @@ func TestExpressions(t *testing.T) {
 					r, err := expr.Solve(ctx)
 					Expect(err).To(BeNil())
 					Expect(r).To(BeFalse())
+				})
+
+				g.It("should fail due to wrong data type (1st param)", func() {
+					expr := expressions.NewExpressionBinary(expressions.NewExpressionValue("invalid"), ">", expressions.NewExpressionValue(3.5))
+					ctx := expressions.NewContext(nil, nil)
+					Expect(expr).NotTo(BeNil())
+					_, err := expr.Solve(ctx)
+					Expect(err).NotTo(BeNil())
+					Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
+				})
+
+				g.It("should fail due to wrong data type (1st param)", func() {
+					expr := expressions.NewExpressionBinary(expressions.NewExpressionValue(1), ">", expressions.NewExpressionValue("invalid"))
+					ctx := expressions.NewContext(nil, nil)
+					Expect(expr).NotTo(BeNil())
+					_, err := expr.Solve(ctx)
+					Expect(err).NotTo(BeNil())
+					Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
 				})
 
 				g.It("should fail with injected expression solving error (1st param)", func() {

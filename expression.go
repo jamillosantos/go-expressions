@@ -86,12 +86,8 @@ func (e *ExpressionMultiple) Solve(ctx Context) (interface{}, error) {
 				return nil, err
 			}
 			switch rr := rTemp.(type) {
-			case int:
-				r = float64(rr)
 			case float64:
 				r = rr
-			default:
-				return nil, NewWrongTypeError(rTemp)
 			}
 			result = r
 		}
