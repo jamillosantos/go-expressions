@@ -41,6 +41,24 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(12)))
 		})
 
+		g.It("should resolve a signed integers", func() {
+			expr, err := expressions.Compile("1+(-3)")
+			Expect(err).To(BeNil())
+			Expect(expr).NotTo(BeNil())
+			v, err := expr.Solve(expressions.NewContext(nil, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(-2)))
+		})
+
+		g.It("should resolve a strange signed integers equation", func() {
+			expr, err := expressions.Compile("1 + -3 + 4")
+			Expect(err).To(BeNil())
+			Expect(expr).NotTo(BeNil())
+			v, err := expr.Solve(expressions.NewContext(nil, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(2)))
+		})
+
 		g.It("should resolve a multiplication", func() {
 			expr, err := expressions.Compile("2*5 + 2*7*2")
 			Expect(err).To(BeNil())
@@ -238,6 +256,14 @@ func TestCompile(t *testing.T) {
 				Expect(err).To(BeNil())
 				Expect(v).To(Equal(math.Log(0.1)))
 				*/
+			})
+
+			g.It("should fail resolving an unknown function 'unexistent'", func() {
+				expr, err := expressions.Compile("unexistent(0.1)")
+				Expect(err).To(BeNil())
+				Expect(expr).NotTo(BeNil())
+				_, err = expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
+				Expect(err).NotTo(BeNil())
 			})
 		})
 	})
