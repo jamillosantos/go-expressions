@@ -111,6 +111,13 @@ type ExpressionMultiplePart struct {
 	expression Expression
 }
 
+func NewExpressionMultiplePart(operator string, expression Expression) *ExpressionMultiplePart {
+	return &ExpressionMultiplePart{
+		operator:   operator,
+		expression: expression,
+	}
+}
+
 func (e *ExpressionMultiplePart) Solve(ctx Context) (interface{}, error) {
 	accumulated := ctx.Accumulated()
 	v, err := e.expression.Solve(ctx)
@@ -185,53 +192,65 @@ func NewExpressionBinary(left Expression, operator string, right Expression) *Ex
 }
 
 func (e *ExpressionBinary) Solve(ctx Context) (interface{}, error) {
-	var (
-		left  float64
-		right float64
-	)
 	rLeft, err := e.left.Solve(ctx)
 	if err != nil {
 		return nil, err
-	}
-	switch r := rLeft.(type) {
-	case int:
-		left = float64(r)
-	case float64:
-		left = r
-	default:
-		return nil, NewWrongTypeError(rLeft)
 	}
 	rRight, err := e.right.Solve(ctx)
 	if err != nil {
 		return nil, err
 	}
-	switch r := rLeft.(type) {
-	case int:
-		right = float64(r)
-	case float64:
-		right = r
-	default:
-		return nil, NewWrongTypeError(rRight)
-	}
 	switch e.operator {
-	case ">":
-		return left > right, nil
-	case "<":
-		return left < right, nil
-	case ">=":
-		return left >= right, nil
-	case "<=":
-		return left <= right, nil
-	case "==":
-		return rLeft == right, nil
-	case "!=":
-		return rLeft != right, nil
+	case ">", "<", ">=", "<=":
+		var (
+			left  float64
+			right float64
+		)
+		switch r := rLeft.(type) {
+		case int:
+			left = float64(r)
+		case float64:
+			left = r
+		default:
+			return nil, NewWrongTypeError(rLeft)
+		}
+		switch r := rRight.(type) {
+		case int:
+			right = float64(r)
+		case float64:
+			right = r
+		default:
+			return nil, NewWrongTypeError(rRight)
+		}
+		switch e.operator {
+		case ">":
+			return left > right, nil
+		case "<":
+			return left < right, nil
+		case ">=":
+			return left >= right, nil
+		case "<=":
+			return left <= right, nil
+		}
+	case "==", "!=":
+		switch e.operator {
+		case "==":
+			return rLeft == rRight, nil
+		case "!=":
+			return rLeft != rRight, nil
+		}
 	}
 	return nil, errors.New(fmt.Sprintf("The operator '%s' is not supported", e.operator))
 }
 
 type ExpressionBrackets struct {
 	inner Expression
+}
+
+func NewExpressionBrackets(expression Expression) *ExpressionBrackets {
+	return &ExpressionBrackets{
+		inner: expression,
+	}
 }
 
 func (e *ExpressionBrackets) Solve(ctx Context) (interface{}, error) {
