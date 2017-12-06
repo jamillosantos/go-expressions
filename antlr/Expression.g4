@@ -55,6 +55,7 @@ function
 
 relop
    : EQ
+   | NOT_EQ
    | GT
    | LT
    | OR
@@ -108,6 +109,10 @@ LT
 
 EQ
    : '=='
+   ;
+
+NOT_EQ
+   : '!='
    ;
 
 OR

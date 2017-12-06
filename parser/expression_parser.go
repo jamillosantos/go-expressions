@@ -17,7 +17,7 @@ var _ = strconv.Itoa
 
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 26, 94, 4, 
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 27, 94, 4, 
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4, 
 	8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13, 9, 
 	13, 3, 2, 3, 2, 3, 2, 7, 2, 30, 10, 2, 12, 2, 14, 2, 33, 11, 2, 3, 3, 3, 
@@ -28,7 +28,7 @@ var parserATN = []uint16{
 	11, 3, 11, 3, 12, 3, 12, 3, 12, 3, 12, 3, 12, 7, 12, 85, 10, 12, 12, 12, 
 	14, 12, 88, 11, 12, 3, 12, 3, 12, 3, 13, 3, 13, 3, 13, 2, 2, 14, 2, 4, 
 	6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 2, 6, 3, 2, 5, 6, 3, 2, 7, 9, 3, 
-	2, 19, 21, 3, 2, 10, 15, 2, 92, 2, 26, 3, 2, 2, 2, 4, 34, 3, 2, 2, 2, 6, 
+	2, 20, 22, 3, 2, 10, 16, 2, 92, 2, 26, 3, 2, 2, 2, 4, 34, 3, 2, 2, 2, 6, 
 	42, 3, 2, 2, 2, 8, 55, 3, 2, 2, 2, 10, 57, 3, 2, 2, 2, 12, 69, 3, 2, 2, 
 	2, 14, 71, 3, 2, 2, 2, 16, 73, 3, 2, 2, 2, 18, 75, 3, 2, 2, 2, 20, 77, 
 	3, 2, 2, 2, 22, 79, 3, 2, 2, 2, 24, 91, 3, 2, 2, 2, 26, 31, 5, 4, 3, 2, 
@@ -37,7 +37,7 @@ var parserATN = []uint16{
 	31, 3, 2, 2, 2, 34, 39, 5, 6, 4, 2, 35, 36, 9, 3, 2, 2, 36, 38, 5, 6, 4, 
 	2, 37, 35, 3, 2, 2, 2, 38, 41, 3, 2, 2, 2, 39, 37, 3, 2, 2, 2, 39, 40, 
 	3, 2, 2, 2, 40, 5, 3, 2, 2, 2, 41, 39, 3, 2, 2, 2, 42, 47, 5, 8, 5, 2, 
-	43, 44, 7, 18, 2, 2, 44, 46, 5, 8, 5, 2, 45, 43, 3, 2, 2, 2, 46, 49, 3, 
+	43, 44, 7, 19, 2, 2, 44, 46, 5, 8, 5, 2, 45, 43, 3, 2, 2, 2, 46, 49, 3, 
 	2, 2, 2, 47, 45, 3, 2, 2, 2, 47, 48, 3, 2, 2, 2, 48, 7, 3, 2, 2, 2, 49, 
 	47, 3, 2, 2, 2, 50, 51, 9, 2, 2, 2, 51, 56, 5, 8, 5, 2, 52, 56, 5, 22, 
 	12, 2, 53, 56, 5, 12, 7, 2, 54, 56, 5, 10, 6, 2, 55, 50, 3, 2, 2, 2, 55, 
@@ -47,10 +47,10 @@ var parserATN = []uint16{
 	10, 2, 64, 65, 7, 3, 2, 2, 65, 66, 5, 2, 2, 2, 66, 67, 7, 4, 2, 2, 67, 
 	70, 3, 2, 2, 2, 68, 70, 5, 14, 8, 2, 69, 61, 3, 2, 2, 2, 69, 62, 3, 2, 
 	2, 2, 69, 63, 3, 2, 2, 2, 69, 64, 3, 2, 2, 2, 69, 68, 3, 2, 2, 2, 70, 13, 
-	3, 2, 2, 2, 71, 72, 7, 23, 2, 2, 72, 15, 3, 2, 2, 2, 73, 74, 7, 25, 2, 
+	3, 2, 2, 2, 71, 72, 7, 24, 2, 2, 72, 15, 3, 2, 2, 2, 73, 74, 7, 26, 2, 
 	2, 74, 17, 3, 2, 2, 2, 75, 76, 9, 4, 2, 2, 76, 19, 3, 2, 2, 2, 77, 78, 
-	7, 22, 2, 2, 78, 21, 3, 2, 2, 2, 79, 80, 7, 22, 2, 2, 80, 81, 7, 3, 2, 
-	2, 81, 86, 5, 2, 2, 2, 82, 83, 7, 16, 2, 2, 83, 85, 5, 2, 2, 2, 84, 82, 
+	7, 23, 2, 2, 78, 21, 3, 2, 2, 2, 79, 80, 7, 23, 2, 2, 80, 81, 7, 3, 2, 
+	2, 81, 86, 5, 2, 2, 2, 82, 83, 7, 17, 2, 2, 83, 85, 5, 2, 2, 2, 84, 82, 
 	3, 2, 2, 2, 85, 88, 3, 2, 2, 2, 86, 84, 3, 2, 2, 2, 86, 87, 3, 2, 2, 2, 
 	87, 89, 3, 2, 2, 2, 88, 86, 3, 2, 2, 2, 89, 90, 7, 4, 2, 2, 90, 23, 3, 
 	2, 2, 2, 91, 92, 9, 5, 2, 2, 92, 25, 3, 2, 2, 2, 8, 31, 39, 47, 55, 69, 
@@ -61,13 +61,13 @@ var deserializedATN = deserializer.DeserializeFromUInt16(parserATN)
 
 var literalNames = []string{
 	"", "'('", "')'", "'+'", "'-'", "'*'", "'/'", "'%'", "'>'", "'<'", "'=='", 
-	"'||'", "'&&'", "'xor'", "','", "'.'", "'^'", "'pi'", "", "'i'", "", "", 
-	"'\"'",
+	"'!='", "'||'", "'&&'", "'xor'", "','", "'.'", "'^'", "'pi'", "", "'i'", 
+	"", "", "'\"'",
 }
 var symbolicNames = []string{
 	"", "LPAREN", "RPAREN", "PLUS", "MINUS", "TIMES", "DIV", "MOD", "GT", "LT", 
-	"EQ", "OR", "AND", "XOR", "COMMA", "POINT", "POW", "PI", "EULER", "I", 
-	"VARIABLE", "QUOTED_STRING", "QUOTE", "SCIENTIFIC_NUMBER", "WS",
+	"EQ", "NOT_EQ", "OR", "AND", "XOR", "COMMA", "POINT", "POW", "PI", "EULER", 
+	"I", "VARIABLE", "QUOTED_STRING", "QUOTE", "SCIENTIFIC_NUMBER", "WS",
 }
 
 var ruleNames = []string{
@@ -113,20 +113,21 @@ const (
 	ExpressionParserGT = 8
 	ExpressionParserLT = 9
 	ExpressionParserEQ = 10
-	ExpressionParserOR = 11
-	ExpressionParserAND = 12
-	ExpressionParserXOR = 13
-	ExpressionParserCOMMA = 14
-	ExpressionParserPOINT = 15
-	ExpressionParserPOW = 16
-	ExpressionParserPI = 17
-	ExpressionParserEULER = 18
-	ExpressionParserI = 19
-	ExpressionParserVARIABLE = 20
-	ExpressionParserQUOTED_STRING = 21
-	ExpressionParserQUOTE = 22
-	ExpressionParserSCIENTIFIC_NUMBER = 23
-	ExpressionParserWS = 24
+	ExpressionParserNOT_EQ = 11
+	ExpressionParserOR = 12
+	ExpressionParserAND = 13
+	ExpressionParserXOR = 14
+	ExpressionParserCOMMA = 15
+	ExpressionParserPOINT = 16
+	ExpressionParserPOW = 17
+	ExpressionParserPI = 18
+	ExpressionParserEULER = 19
+	ExpressionParserI = 20
+	ExpressionParserVARIABLE = 21
+	ExpressionParserQUOTED_STRING = 22
+	ExpressionParserQUOTE = 23
+	ExpressionParserSCIENTIFIC_NUMBER = 24
+	ExpressionParserWS = 25
 )
 
 // ExpressionParser rules.
@@ -1799,6 +1800,10 @@ func (s *RelopContext) EQ() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserEQ, 0)
 }
 
+func (s *RelopContext) NOT_EQ() antlr.TerminalNode {
+	return s.GetToken(ExpressionParserNOT_EQ, 0)
+}
+
 func (s *RelopContext) GT() antlr.TerminalNode {
 	return s.GetToken(ExpressionParserGT, 0)
 }
@@ -1869,7 +1874,7 @@ func (p *ExpressionParser) Relop() (localctx IRelopContext) {
 	p.SetState(89)
 	_la = p.GetTokenStream().LA(1)
 
-	if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserGT) | (1 << ExpressionParserLT) | (1 << ExpressionParserEQ) | (1 << ExpressionParserOR) | (1 << ExpressionParserAND) | (1 << ExpressionParserXOR))) != 0)) {
+	if !((((_la) & -(0x1f+1)) == 0 && ((1 << uint(_la)) & ((1 << ExpressionParserGT) | (1 << ExpressionParserLT) | (1 << ExpressionParserEQ) | (1 << ExpressionParserNOT_EQ) | (1 << ExpressionParserOR) | (1 << ExpressionParserAND) | (1 << ExpressionParserXOR))) != 0)) {
 		p.GetErrorHandler().RecoverInline(p)
 	} else {
 	    p.GetErrorHandler().ReportMatch(p)
