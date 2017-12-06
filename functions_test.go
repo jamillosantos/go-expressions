@@ -543,6 +543,34 @@ func TestFunctions(t *testing.T) {
 				Expect(v).To(Equal(math.Atan2(0.8, 1.2)))
 			})
 
+			g.It("should fail 'atan2' with wrong type (1st param)", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "atan2", expressions.NewExpressionValue("invalid type"), expressions.NewExpressionValue(1.2))
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
+			})
+
+			g.It("should fail 'atan2' with wrong type (2nd param)", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "atan2", expressions.NewExpressionValue(1.2), expressions.NewExpressionValue("invalid type"))
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
+			})
+
+			g.It("should fail 'atan2' with injected failing expression (1st param)", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "atan2", &ExpressionFail{}, expressions.NewExpressionValue(1.2))
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(Equal("failed"))
+			})
+
+			g.It("should fail 'atan2' with injected failing expression (2nd param)", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "atan2", expressions.NewExpressionValue(1.2), &ExpressionFail{})
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(Equal("failed"))
+			})
+
 			g.It("should fail 'atan2' due to lack of parameters", func() {
 				functions := &expressions.DefaultFunctions{}
 				_, err := functions.Call(expressions.NewContext(nil, nil), "atan2", expressions.NewExpressionValue(0.8))
@@ -722,6 +750,27 @@ func TestFunctions(t *testing.T) {
 				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(nil), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
 				Expect(err).To(BeNil())
 				Expect(v).To(Equal(3))
+			})
+
+			g.It("should fail solving condition due to injected failing expression", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "if", &ExpressionFail{}, expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(Equal("failed"))
+			})
+
+			g.It("should fail solving 1st param due to injected failing expression", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(true), &ExpressionFail{}, expressions.NewExpressionValue(3))
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(Equal("failed"))
+			})
+
+			g.It("should fail solving 2nd param due to injected failing expression", func() {
+				functions := &expressions.DefaultFunctions{}
+				_, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(false), expressions.NewExpressionValue(3), &ExpressionFail{})
+				Expect(err).NotTo(BeNil())
+				Expect(fmt.Sprint(err)).To(Equal("failed"))
 			})
 
 			g.It("should fail 'if' due to lack of parameters", func() {
