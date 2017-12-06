@@ -36,19 +36,23 @@ func newExpression(expression antlr.Tree) Expression {
 			panic("TODO! " + e.GetText())
 		}
 	case *parser.ExpressionContext:
-		r := NewExpressionMultiple()
-		for i, me := range e.AllMultiplyingExpression() {
-			if i == 0 {
-				r.Add("", newExpression(me))
-			} else {
-				r.Add(e.GetChild(i*2 - 1).(*antlr.TerminalNodeImpl).GetText(), newExpression(me))
+		if e.GetChildCount() == 1 {
+			return newExpression(e.GetChild(0))
+		} else {
+			r := NewExpressionMultiple()
+			for i, me := range e.AllMultiplyingExpression() {
+				if i == 0 {
+					r.Add("", newExpression(me))
+				} else {
+					r.Add(e.GetChild(i*2 - 1).(*antlr.TerminalNodeImpl).GetText(), newExpression(me))
+				}
 			}
+			return r
 		}
-		return r
 	case *parser.MultiplyingExpressionContext:
-		powExpressions := e.AllPowExpression()
-		if len(powExpressions) == 1 {
-			return newExpression(powExpressions[0])
+		childCount := e.GetChildCount()
+		if childCount == 1 {
+			return newExpression(e.GetChild(0))
 		} else {
 			r := NewExpressionMultiple()
 			for i, me := range e.AllPowExpression() {
@@ -81,6 +85,12 @@ func newExpression(expression antlr.Tree) Expression {
 			params = append(params, newExpression(p))
 		}
 		return NewExpressionFunction(e.GetFname().GetText(), params...)
+	case *parser.BinaryOpContext:
+		atoms := e.AllAtom()
+		return NewExpressionBinary(newExpression(atoms[0]), e.Relop().GetText(), newExpression(atoms[1]))
+	case *parser.StrContext:
+		str := e.GetText()
+		return NewExpressionValue(str[1:len(str)-1])
 	}
 	return nil
 }

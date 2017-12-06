@@ -647,12 +647,81 @@ func TestFunctions(t *testing.T) {
 		})
 
 		g.Describe("'if' function", func() {
-			g.It("should calculate 'if'", func() {
-				// TODO
-				// functions := &expressions.DefaultFunctions{}
-				// v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(0.8))
-				// Expect(err).To(BeNil())
-				// Expect(v).To(Equal(math.Log(0.8)))
+			g.It("should calculate 'if' with true condition", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(true), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with false condition", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(false), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(3))
+			})
+
+			g.It("should calculate 'if' with integer condition (above zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(1), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with integer condition (below zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(-1), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with integer condition (zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(0), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(3))
+			})
+
+			g.It("should calculate 'if' with float condition (above zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(0.001), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with float condition (below zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(-0.001), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with float condition (zero)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(0.0), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(3))
+			})
+
+			g.It("should calculate 'if' with string condition (non-empty)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue("a non empty string"), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(2))
+			})
+
+			g.It("should calculate 'if' with string condition (empty)", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(""), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(3))
+			})
+
+			g.It("should calculate 'if' with nil condition", func() {
+				functions := &expressions.DefaultFunctions{}
+				v, err := functions.Call(expressions.NewContext(nil, nil), "if", expressions.NewExpressionValue(nil), expressions.NewExpressionValue(2), expressions.NewExpressionValue(3))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(3))
 			})
 
 			g.It("should fail 'if' due to lack of parameters", func() {

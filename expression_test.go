@@ -787,6 +787,14 @@ func TestExpressions(t *testing.T) {
 				Expect(v).NotTo(BeNil())
 				Expect(v).To(Equal(math.Acos(0.1)))
 			})
+
+			g.It("should solve a function with multiple parameters", func() {
+				expr := expressions.NewExpressionFunction("if", expressions.NewExpressionValue(true), expressions.NewExpressionValue("true"), expressions.NewExpressionValue("false"))
+				v, err := expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
+				Expect(err).To(BeNil())
+				Expect(v).NotTo(BeNil())
+				Expect(v).To(Equal("true"))
+			})
 		})
 
 		g.Describe("ExpressionBrackets", func() {

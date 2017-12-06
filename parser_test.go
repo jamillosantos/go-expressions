@@ -41,7 +41,7 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(12)))
 		})
 
-		g.It("should resolve a signed integers", func() {
+		g.It("should resolve a signed integers (with brackets)", func() {
 			expr, err := expressions.Compile("1+(-3)")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
@@ -50,7 +50,7 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(-2)))
 		})
 
-		g.It("should resolve a strange signed integers equation", func() {
+		g.It("should resolve a signed integers (without brackets)", func() {
 			expr, err := expressions.Compile("1 + -3 + 4")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
@@ -59,7 +59,7 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(2)))
 		})
 
-		g.It("should resolve a multiplication", func() {
+		g.It("should resolve a multiplication (without brackets)", func() {
 			expr, err := expressions.Compile("2*5 + 2*7*2")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
@@ -68,22 +68,31 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(38)))
 		})
 
-		g.It("should resolve a multiplication", func() {
-			expr, err := expressions.Compile("2*5 + 2*7*2")
+		g.It("should resolve a multiplication (with brackets)", func() {
+			expr, err := expressions.Compile("2*(5 + (2*7))*2")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
 			v, err := expr.Solve(expressions.NewContext(nil, nil))
 			Expect(err).To(BeNil())
-			Expect(v).To(Equal(float64(38)))
+			Expect(v).To(Equal(float64(76)))
 		})
 
-		g.It("should resolve a division", func() {
+		g.It("should resolve a division (without brackets)", func() {
 			expr, err := expressions.Compile("64/8 - 10/5")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
 			v, err := expr.Solve(expressions.NewContext(nil, nil))
 			Expect(err).To(BeNil())
 			Expect(v).To(Equal(float64(6)))
+		})
+
+		g.It("should resolve a division (with brackets)", func() {
+			expr, err := expressions.Compile("66/(8 - 10/5)")
+			Expect(err).To(BeNil())
+			Expect(expr).NotTo(BeNil())
+			v, err := expr.Solve(expressions.NewContext(nil, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(11)))
 		})
 
 		g.It("should resolve a pow", func() {
@@ -95,7 +104,31 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(8)))
 		})
 
-		g.It("should resolve a equation with variables", func() {
+		g.It("should resolve a pow (with brackets)", func() {
+			expr, err := expressions.Compile("4^(2^3)")
+			Expect(err).To(BeNil())
+			Expect(expr).NotTo(BeNil())
+			v, err := expr.Solve(expressions.NewContext(nil, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(65536)))
+		})
+
+		g.It("should resolve a equation with variables (without brackets)", func() {
+			resolver := expressions.NewMapResolver(map[string]float64{
+				"x": 4.5,
+				"y": 2,
+			})
+			expr, err := expressions.Compile("5+x*y")
+			if err != nil {
+				t.Logf("Error: %s", err)
+				t.Fail()
+			}
+			v, err := expr.Solve(expressions.NewContext(resolver, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(14)))
+		})
+
+		g.It("should resolve a equation with variables (with brackets)", func() {
 			resolver := expressions.NewMapResolver(map[string]float64{
 				"x": 4.5,
 				"y": 2,
@@ -246,16 +279,40 @@ func TestCompile(t *testing.T) {
 				Expect(v).To(Equal(math.Log(0.1)))
 			})
 
-			g.It("should resolve a function 'if'", func() {
-				// TODO!!
-				/*
-				expr, err := expressions.Compile("if(0.1)")
+			g.It("should resolve a function 'if' (true statement)", func() {
+				expr, err := expressions.Compile("if(1 == 1, 2, 3)")
 				Expect(err).To(BeNil())
 				Expect(expr).NotTo(BeNil())
 				v, err := expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
 				Expect(err).To(BeNil())
-				Expect(v).To(Equal(math.Log(0.1)))
-				*/
+				Expect(v).To(Equal(float64(2)))
+			})
+
+			g.It("should resolve a function 'if' (false statement)", func() {
+				expr, err := expressions.Compile("if(1 != 1, 2, 3)")
+				Expect(err).To(BeNil())
+				Expect(expr).NotTo(BeNil())
+				v, err := expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal(float64(3)))
+			})
+
+			g.It("should resolve a function 'if' return string (true statement)", func() {
+				expr, err := expressions.Compile("if(1 == 1, \"Oh yeah!\", \"Oh nooo!\")")
+				Expect(err).To(BeNil())
+				Expect(expr).NotTo(BeNil())
+				v, err := expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal("Oh yeah!"))
+			})
+
+			g.It("should resolve a function 'if' return string (false statement)", func() {
+				expr, err := expressions.Compile("if(1 != 1, \"Oh yeah!\", \"Oh nooo!\")")
+				Expect(err).To(BeNil())
+				Expect(expr).NotTo(BeNil())
+				v, err := expr.Solve(expressions.NewContext(nil, &expressions.DefaultFunctions{}))
+				Expect(err).To(BeNil())
+				Expect(v).To(Equal("Oh nooo!"))
 			})
 
 			g.It("should fail resolving an unknown function 'unexistent'", func() {

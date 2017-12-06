@@ -334,8 +334,27 @@ func (*DefaultFunctions) Call(ctx Context, name string, params ... Expression) (
 				paramCount: 3,
 			}
 		}
-		// TODO
-		return nil, errors.New("Not implemented")
+		condition, err := params[0].Solve(ctx)
+		if err != nil {
+			return nil, err
+		}
+		c := false
+		switch cc := condition.(type) {
+		case bool:
+			c = cc
+		case int:
+			c = cc != 0
+		case float64:
+			c = cc != 0
+		case string:
+			c = cc != ""
+		default:
+			c = cc != nil
+		}
+		if c {
+			return params[1].Solve(ctx)
+		}
+		return params[2].Solve(ctx)
 	default:
 		return nil, errors.New(fmt.Sprintf("The function '%s' is not defined.", name))
 	}
