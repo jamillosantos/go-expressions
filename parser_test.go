@@ -14,6 +14,10 @@ func TestCompile(t *testing.T) {
 	RegisterFailHandler(func(m string, _ ...int) { g.Fail(m) })
 
 	g.Describe("Compile", func() {
+		g.It("should return a nil expression", func() {
+			Expect(expressions.NewExpression(nil)).To(BeNil())
+		})
+
 		g.It("should resolve a simple equation with additions and subtractions", func() {
 			expr, err := expressions.Compile("1 + 2 - 3 + 4 - 5 + 6")
 			Expect(err).To(BeNil())
