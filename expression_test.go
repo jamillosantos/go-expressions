@@ -44,7 +44,7 @@ func TestExpressions(t *testing.T) {
 
 			g.It("should solve an expression", func() {
 				v := expressions.NewExpressionField("field")
-				resolver := expressions.NewMapResolver(map[string]float64{
+				resolver := expressions.NewMapResolver(map[string]interface{}{
 					"field": 1.2345,
 				})
 				ctx := expressions.NewContext(resolver, nil)
@@ -183,7 +183,7 @@ func TestExpressions(t *testing.T) {
 				Expect(err).NotTo(BeNil())
 			})
 
-			g.It("should fail due to invalid oeprator", func() {
+			g.It("should fail due to invalid operator", func() {
 				expr := expressions.NewExpressionMultiplePart("invalid operator", expressions.NewExpressionValue(4))
 				Expect(expr).NotTo(BeNil())
 				_, err := expr.Solve(expressions.NewContext(nil, nil))
@@ -361,7 +361,49 @@ func TestExpressions(t *testing.T) {
 				})
 			})
 
-			g.Describe("Power", func() {
+			g.Describe("Module", func() {
+				g.It("should solve an expression with integer params", func() {
+					expr := expressions.NewExpressionMultiplePart("%", expressions.NewExpressionValue(2))
+					Expect(expr).NotTo(BeNil())
+					ctx := expressions.NewContext(nil, nil)
+					ctx.SetAccumulated(5)
+					v, err := expr.Solve(ctx)
+					Expect(err).To(BeNil())
+					Expect(v).To(Equal(1))
+				})
+
+				g.It("should solve an expression with float params", func() {
+					expr := expressions.NewExpressionMultiplePart("%", expressions.NewExpressionValue(float64(3)))
+					Expect(expr).NotTo(BeNil())
+					ctx := expressions.NewContext(nil, nil)
+					ctx.SetAccumulated(5)
+					v, err := expr.Solve(ctx)
+					Expect(err).To(BeNil())
+					Expect(v).To(Equal(2))
+				})
+
+				g.It("should fail with injected expression solving failure", func() {
+					expr := expressions.NewExpressionMultiplePart("%+", &ExpressionFail{})
+					Expect(expr).NotTo(BeNil())
+					ctx := expressions.NewContext(nil, nil)
+					ctx.SetAccumulated(3.5)
+					_, err := expr.Solve(ctx)
+					Expect(err).NotTo(BeNil())
+					Expect(fmt.Sprint(err)).To(Equal("failed"))
+				})
+
+				g.It("should fail with wrong data type", func() {
+					expr := expressions.NewExpressionMultiplePart("%", expressions.NewExpressionValue("wrong data type"))
+					Expect(expr).NotTo(BeNil())
+					ctx := expressions.NewContext(nil, nil)
+					ctx.SetAccumulated(3.5)
+					_, err := expr.Solve(ctx)
+					Expect(err).NotTo(BeNil())
+					Expect(fmt.Sprint(err)).To(ContainSubstring("not a valid type"))
+				})
+			})
+
+			g.Describe("Exponentiation", func() {
 				g.It("should solve an expression with integer params", func() {
 					expr := expressions.NewExpressionMultiplePart("^", expressions.NewExpressionValue(2))
 					Expect(expr).NotTo(BeNil())

@@ -15,7 +15,7 @@ func TestMapResolver(t *testing.T) {
 	g.Describe("Resolvers", func() {
 		g.Describe("MapResolver", func() {
 			g.It("should resolve two variables", func() {
-				resolver := expressions.NewMapResolver(map[string]float64{
+				resolver := expressions.NewMapResolver(map[string]interface{}{
 					"t": float64(1),
 					"c": float64(2.34),
 				})

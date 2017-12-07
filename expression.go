@@ -86,6 +86,8 @@ func (e *ExpressionMultiple) Solve(ctx Context) (interface{}, error) {
 				return nil, err
 			}
 			switch rr := rTemp.(type) {
+			case int:
+				r = float64(rr)
 			case float64:
 				r = rr
 			}
@@ -156,6 +158,15 @@ func (e *ExpressionMultiplePart) Solve(ctx Context) (interface{}, error) {
 			return accumulated / float64(vv), nil
 		case float64:
 			return accumulated / vv, nil
+		default:
+			return nil, NewWrongTypeError(v)
+		}
+	case "%":
+		switch vv := v.(type) {
+		case int:
+			return int(accumulated+0.5) % vv, nil
+		case float64:
+			return int(accumulated+0.5) % int(vv+0.5), nil
 		default:
 			return nil, NewWrongTypeError(v)
 		}

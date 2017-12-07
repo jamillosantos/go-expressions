@@ -5,10 +5,10 @@ type Resolver interface {
 }
 
 type MapResolver struct {
-	m map[string]float64
+	m map[string]interface{}
 }
 
-func NewMapResolver(m map[string]float64) *MapResolver {
+func NewMapResolver(m map[string]interface{}) *MapResolver {
 	return &MapResolver{
 		m: m,
 	}

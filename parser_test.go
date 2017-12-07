@@ -6,6 +6,7 @@ import (
 	. "github.com/franela/goblin"
 	. "github.com/onsi/gomega"
 	"math"
+	"time"
 )
 
 func TestCompile(t *testing.T) {
@@ -99,7 +100,7 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(11)))
 		})
 
-		g.It("should resolve a pow", func() {
+		g.It("should resolve a exponentiation", func() {
 			expr, err := expressions.Compile("2^3")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
@@ -108,17 +109,28 @@ func TestCompile(t *testing.T) {
 			Expect(v).To(Equal(float64(8)))
 		})
 
-		g.It("should resolve a pow (with brackets)", func() {
-			expr, err := expressions.Compile("4^(2^3)")
+		g.It("should resolve a modulus", func() {
+			expr, err := expressions.Compile("2%3")
 			Expect(err).To(BeNil())
 			Expect(expr).NotTo(BeNil())
 			v, err := expr.Solve(expressions.NewContext(nil, nil))
 			Expect(err).To(BeNil())
-			Expect(v).To(Equal(float64(65536)))
+			Expect(v).To(Equal(float64(2)))
+		})
+
+		g.It("should resolve a modulus (with brackets)", func() {
+			g.Timeout(time.Hour)
+
+			expr, err := expressions.Compile("4%(6-3)")
+			Expect(err).To(BeNil())
+			Expect(expr).NotTo(BeNil())
+			v, err := expr.Solve(expressions.NewContext(nil, nil))
+			Expect(err).To(BeNil())
+			Expect(v).To(Equal(float64(1)))
 		})
 
 		g.It("should resolve a equation with variables (without brackets)", func() {
-			resolver := expressions.NewMapResolver(map[string]float64{
+			resolver := expressions.NewMapResolver(map[string]interface{}{
 				"x": 4.5,
 				"y": 2,
 			})
@@ -133,7 +145,7 @@ func TestCompile(t *testing.T) {
 		})
 
 		g.It("should resolve a equation with variables (with brackets)", func() {
-			resolver := expressions.NewMapResolver(map[string]float64{
+			resolver := expressions.NewMapResolver(map[string]interface{}{
 				"x": 4.5,
 				"y": 2,
 			})
