@@ -1,5 +1,10 @@
 package expressions
 
+import (
+	"errors"
+	"fmt"
+)
+
 type Resolver interface {
 	Resolve(name string) (interface{}, error)
 }
@@ -15,5 +20,8 @@ func NewMapResolver(m map[string]interface{}) *MapResolver {
 }
 
 func (resolver *MapResolver) Resolve(name string) (interface{}, error) {
-	return resolver.m[name], nil
+	if v, ok := resolver.m[name]; ok {
+		return v, nil
+	}
+	return nil, errors.New(fmt.Sprintf("Value of %s was not found.", name))
 }

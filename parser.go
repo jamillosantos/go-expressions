@@ -4,6 +4,8 @@ import (
 	"github.com/jamillosantos/go-expressions/parser"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"strconv"
+	"errors"
+	"fmt"
 )
 
 type ExpressionError error
@@ -91,12 +93,45 @@ func NewExpression(expression antlr.Tree) Expression {
 	return nil
 }
 
+type CaptureErrorListener struct {
+	errors []error
+}
+
+func NewCaptureErrorListener() *CaptureErrorListener {
+	return &CaptureErrorListener{
+		errors: make([]error, 0),
+	}
+}
+
+func (errorListener *CaptureErrorListener) HasErrors() bool {
+	return len(errorListener.errors) > 0
+}
+
+func (errorListener *CaptureErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
+	errorListener.errors = append(errorListener.errors, errors.New(fmt.Sprintf("%s at %d:%d", msg, line, column)))
+}
+
+func (errorListener *CaptureErrorListener) ReportAmbiguity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, exact bool, ambigAlts *antlr.BitSet, configs antlr.ATNConfigSet) {
+}
+
+func (errorListener *CaptureErrorListener) ReportAttemptingFullContext(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, conflictingAlts *antlr.BitSet, configs antlr.ATNConfigSet) {
+}
+
+func (errorListener *CaptureErrorListener) ReportContextSensitivity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex, prediction int, configs antlr.ATNConfigSet) {
+}
+
 func Compile(expression string) (Expression, error) {
 	input := antlr.NewInputStream(expression)
 	lexer := parser.NewExpressionLexer(input)
 	stream := antlr.NewCommonTokenStream(lexer, 0)
 	p := parser.NewExpressionParser(stream)
-	p.AddErrorListener(antlr.NewDiagnosticErrorListener(true))
+
+	errorListener := NewCaptureErrorListener()
+	p.AddErrorListener(errorListener)
 	p.BuildParseTrees = true
-	return NewExpression(p.Expression()), nil
+	expr := p.Expression()
+	if errorListener.HasErrors() {
+		return nil, errorListener.errors[0]
+	}
+	return NewExpression(expr), nil
 }
